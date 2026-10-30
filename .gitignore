@@ -1,0 +1,24 @@
+# Secrets / local configuration
+config.local.php
+.env
+*.keystore
+*.jks
+*.p12
+*.mobileprovision
+
+# User-uploaded product photos remain on the production host
+/uploads/*
+!/uploads/.gitkeep
+
+# Native build outputs and dependencies
+**/node_modules/
+/native-build/android/.gradle/
+/native-build/android/app/build/
+/native-build/desktop/release/
+/native-build/desktop/dist/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
