@@ -1,0 +1,65 @@
+{
+  "name": "afa-cipta-karya-nusantara",
+  "version": "1.0.0",
+  "description": "AFA Cipta Karya Nusantara desktop app",
+  "main": "main.cjs",
+  "author": "AFA Cipta Karya Nusantara",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win nsis --x64",
+    "dist:mac": "electron-builder --mac dmg"
+  },
+  "devDependencies": {
+    "electron": "^33.2.1",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.afaciptakaryanusantara.app",
+    "productName": "AFA Cipta Karya Nusantara",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "main.cjs",
+      "offline-fallback.html",
+      "package.json",
+      "assets/**"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "assets/afa.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": [
+            "x64",
+            "arm64"
+          ]
+        }
+      ],
+      "icon": "assets/afa.icns",
+      "category": "public.app-category.business"
+    },
+    "dmg": {
+      "sign": false
+    }
+  }
+}
