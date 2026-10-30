@@ -1,0 +1,4 @@
+# Protect local configuration and database exports
+<FilesMatch "^(config\.local\.php|.*\.sql|README.*\.txt)$">
+  Require all denied
+</FilesMatch>

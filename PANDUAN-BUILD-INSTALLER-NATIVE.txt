@@ -1,0 +1,56 @@
+AFA CIPTA KARYA NUSANTARA — NATIVE BUILD KIT v1
+================================================
+Paket ini berisi source website PWA, project Android dan Electron desktop, serta workflow build.
+Paket ini BELUM berisi APK/EXE/DMG hasil kompilasi. Workflow GitHub Actions mengompilasi installer
+pada runner resmi masing-masing OS.
+
+HASIL YANG DIHARAPKAN
+- Android: app-debug.apk (installable untuk pengujian; bukan Play Store signed release).
+- Windows: installer AFA Cipta Karya Nusantara Setup x64.exe.
+- macOS: AFA Cipta Karya Nusantara.dmg.
+- iPhone/iPad: gunakan PWA melalui Safari > Share > Add to Home Screen. IPA tidak dibuat.
+
+LANGKAH BUILD SEMUA PLATFORM
+1. Ekstrak ZIP ini.
+2. Buat repository GitHub PRIVATE baru.
+3. Upload/commit seluruh isi folder AFA_Offline_App_v1 ke root repository.
+4. Pastikan website online sudah dipasang dan diuji sesuai README-OFFLINE-AFA-v1.txt.
+5. Buka GitHub > Actions.
+6. Jalankan workflow "Build Android APK"; unduh artifact AFA-Android-APK-debug.
+7. Jalankan workflow "Build Windows EXE"; unduh artifact AFA-Windows-Installer.
+8. Jalankan workflow "Build macOS DMG"; unduh artifact AFA-macOS-DMG.
+
+ANDROID
+APK debug dapat dipasang untuk uji internal. Untuk Play Store/distribusi produksi, buat keystore
+milik AFA dan build release bertanda tangan. Jangan membagikan debug APK sebagai rilis publik.
+
+WINDOWS
+Installer EXE dibuat pada runner Windows. Karena belum ditandatangani sertifikat code-signing,
+Windows SmartScreen dapat menampilkan peringatan.
+
+MACOS
+DMG dibuat pada runner macOS. Belum ditandatangani Developer ID dan belum notarized Apple;
+Gatekeeper dapat meminta pengguna mengizinkan aplikasi melalui Privacy & Security. Distribusi publik
+yang mulus membutuhkan Apple Developer ID serta signing dan notarization.
+
+OFFLINE
+Shell native membuka domain HTTPS yang sama; cache offline berasal dari Service Worker situs.
+Perangkat wajib online setidaknya sekali agar Service Worker, halaman, katalog dan gambar tersimpan.
+Background sync tidak dijamin oleh OS ketika aplikasi benar-benar ditutup. Uji semua alur di staging
+sebelum digunakan dengan data produksi.
+
+KEAMANAN
+- Repository sebaiknya PRIVATE.
+- Jangan masukkan config.local.php, password database, token, atau keystore ke repository.
+- Backend PHP tetap berada di hosting. Aplikasi native adalah shell WebView/Chromium.
+- Untuk rilis resmi, siapkan signing Android, Windows code signing, dan Apple Developer ID.
+
+CHECKLIST
+[ ] Backup website dan MySQL.
+[ ] Deploy PWA ke staging HTTPS.
+[ ] Tes cache katalog dan gambar.
+[ ] Tes admin offline PIN dan antrean.
+[ ] Tes sinkronisasi di dua perangkat.
+[ ] Build APK/EXE/DMG pada GitHub Actions.
+[ ] Uji instalasi pada perangkat target.
+[ ] Signing/notarization sesuai kebutuhan distribusi.
