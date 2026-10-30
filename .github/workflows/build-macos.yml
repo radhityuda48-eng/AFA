@@ -1,1 +1,30 @@
 
+name: Build macOS DMG
+
+'on':
+  workflow_dispatch:
+
+jobs:
+  macos:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        working-directory: native-build/desktop
+        run: npm install --no-audit --no-fund
+
+      - name: Build macOS DMG
+        working-directory: native-build/desktop
+        run: npm run dist:mac
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: AFA-macOS-DMG
+          path: native-build/desktop/release/*.dmg
+          if-no-files-found: error
+
