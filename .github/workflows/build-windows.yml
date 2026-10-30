@@ -1,3 +1,4 @@
+
 name: Build Windows EXE
 
 'on':
@@ -7,23 +8,23 @@ jobs:
   windows:
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: '22'
 
       - name: Install dependencies
-        working-directory: 
         run: npm install --no-audit --no-fund
 
       - name: Build Windows installer
-        working-directory: 
         run: npm run dist:win
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Windows installer
+        uses: actions/upload-artifact@v4
         with:
           name: AFA-Windows-Installer
-          path: native-build/desktop/release/*.exe
+          path: release/*.exe
           if-no-files-found: error
-
